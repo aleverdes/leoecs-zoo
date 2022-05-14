@@ -60,7 +60,7 @@ namespace AffenCode
                     {
                         component.ConvertToEntity(_entity.Value);
                     }
-                    ConvertChildrenToEntity(t);
+                    ConvertChildrenToEntity(child);
                 }
             }
         }
