@@ -50,7 +50,7 @@ namespace AffenCode
 
         private void ConvertChildrenToEntity(Transform t)
         {
-            for (var i = 0; i < transform.childCount; ++i)
+            for (var i = 0; i < t.childCount; ++i)
             {
                 var child = t.GetChild(i);
                 if (!child.TryGetComponent<ConvertToEntity>(out var convertToEntity))
