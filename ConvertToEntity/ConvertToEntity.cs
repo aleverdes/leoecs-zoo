@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Leopotam.Ecs;
 using UnityEngine;
 namespace AffenCode
@@ -8,9 +7,14 @@ namespace AffenCode
         [SerializeField] private EcsWorldProvider _worldProvider;
         [SerializeField] private ConvertMode _convertMode;
         [SerializeField] private CollectMode _collectMode;
-        
+
         private EcsEntity? _entity;
-        
+
+        private void Reset()
+        {
+            _worldProvider = FindObjectOfType<EcsWorldProvider>();
+        }
+
         private void Start()
         {
             _entity = _worldProvider.World.NewEntity();
@@ -20,7 +24,7 @@ namespace AffenCode
             {
                 component.ConvertToEntity(_entity.Value);
             }
-            
+
             if (_collectMode == CollectMode.IncludeChildren)
             {
                 ConvertChildrenToEntity(transform);
@@ -46,7 +50,7 @@ namespace AffenCode
 
         private void ConvertChildrenToEntity(Transform t)
         {
-            for (int i = 0; i < transform.childCount; ++i)
+            for (var i = 0; i < transform.childCount; ++i)
             {
                 var child = t.GetChild(i);
                 if (!child.TryGetComponent<ConvertToEntity>(out var convertToEntity))
