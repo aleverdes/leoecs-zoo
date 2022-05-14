@@ -1,2 +1,2 @@
-# leoecs-zoo-library
+# LeoECS Zoo
 Zoo of different utilities for LeoECS
