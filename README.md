@@ -55,3 +55,47 @@ public class PlayerMovementSystem : IEcsRunSystem
     }
 }
 ```
+
+### Convert To Entity
+
+#### Manual conversion
+
+```csharp
+using Leopotam.Ecs;
+using AffenCode;
+using UnityEngine;
+
+[RequireComponent(typeof(ConvertToEntity))]
+public class BasicConvertToEntity : MonoBehaviour, IConvertToEntity
+{
+    public void ConvertToEntity(EcsEntity ecsEntity)
+    {
+        ecsEntity.AddGameObject(gameObject);
+        ecsEntity.AddTransform(transform);
+        if (TryGetComponent<Rigidbody>(out var rb))
+        {
+            ecsEntity.AddRigidbody(rb);
+        }
+    }
+}
+```
+
+#### Component Conversion
+
+```csharp
+using AffenCode;
+
+public class PlayerConvertToEntity : ConvertComponent<Player>
+{
+}
+```
+
+```csharp
+using System;
+
+[Serializable] // Required for ConvertComponent<T>
+public struct Player
+{
+    public string Name;
+}
+```
