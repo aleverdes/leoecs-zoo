@@ -29,4 +29,9 @@ namespace AffenCode
     {
         public GameObject Value;
     }
+
+    public struct AnimatorRef
+    {
+        public Animator Value;
+    }
 }
