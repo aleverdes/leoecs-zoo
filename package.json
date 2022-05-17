@@ -1,0 +1,25 @@
+{
+  "name": "com.affencode.leoecszoo",
+  "displayName": "LeoEcsZoo",
+  "description": "Zoo of different utilities for LeoECS.",
+  "unity": "2019.1",
+  "version": "1.0.0",
+  "keywords": [
+    "ecs",
+    "leoecs",
+    "conversion",
+    "performance",
+    "utils",
+    "utilities",
+    "extensions"
+  ],
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aleverdes/leoecs-zoo.git"
+  },
+  "author": {
+    "name": "AleVerDes",
+    "email": "aleverdes.alex@gmail.com"
+  }
+}
