@@ -5,9 +5,9 @@ namespace AffenCode
     public abstract class EcsStartup : MonoBehaviour
     {
         [SerializeField] protected EcsWorldProvider WorldProvider;
+
         protected EcsSystems FixedUpdateSystems;
         protected EcsSystems LateUpdateSystems;
-
         protected EcsSystems UpdateSystems;
 
         private void Start()
