@@ -59,6 +59,7 @@ namespace AffenCode
             UpdateSystems.Add(new SyncFromUnityTransformSystem());
             AddUpdateSystems(UpdateSystems);
             UpdateSystems.Add(new SyncToUnityTransformSystem());
+            AddUpdateOneFrameComponents(UpdateSystems);
             UpdateSystems.InjectData();
             UpdateSystems.Init();
             return UpdateSystems;
@@ -68,6 +69,7 @@ namespace AffenCode
         {
             FixedUpdateSystems = new(WorldProvider.World);
             AddFixedUpdateSystems(FixedUpdateSystems);
+            AddFixedUpdateOneFrameComponents(UpdateSystems);
             FixedUpdateSystems.InjectData();
             FixedUpdateSystems.Init();
             return FixedUpdateSystems;
@@ -79,6 +81,7 @@ namespace AffenCode
             LateUpdateSystems.Add(new SyncFromUnityTransformSystem());
             AddLateUpdateSystems(LateUpdateSystems);
             LateUpdateSystems.Add(new SyncToUnityTransformSystem());
+            AddLateUpdateOneFrameComponents(UpdateSystems);
             LateUpdateSystems.InjectData();
             LateUpdateSystems.Init();
             return LateUpdateSystems;
@@ -87,5 +90,12 @@ namespace AffenCode
         protected abstract void AddUpdateSystems(EcsSystems ecsSystems);
         protected abstract void AddLateUpdateSystems(EcsSystems ecsSystems);
         protected abstract void AddFixedUpdateSystems(EcsSystems ecsSystems);
+
+        protected virtual void AddUpdateOneFrameComponents(EcsSystems ecsSystems)
+        {}
+        protected virtual void AddFixedUpdateOneFrameComponents(EcsSystems ecsSystems)
+        {}
+        protected virtual void AddLateUpdateOneFrameComponents(EcsSystems ecsSystems)
+        {}
     }
 }
