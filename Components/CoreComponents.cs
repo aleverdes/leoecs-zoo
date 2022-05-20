@@ -40,8 +40,8 @@ namespace AffenCode
         public Animator Value;
     }
 
-    public struct SpriteRef
+    public struct SpriteRendererRef
     {
-        public Sprite Value;
+        public SpriteRenderer Value;
     }
 }
