@@ -25,6 +25,11 @@ namespace AffenCode
         public Rigidbody Value;
     }
 
+    public struct Rigidbody2DRef
+    {
+        public Rigidbody2D Value;
+    }
+
     public struct GameObjectRef
     {
         public GameObject Value;

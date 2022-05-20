@@ -1,10 +1,12 @@
 using Leopotam.Ecs;
+using UnityEngine;
 namespace AffenCode
 {
     public class SyncFromUnityTransformSystem : IEcsPreInitSystem, IEcsRunSystem
     {
         private EcsFilter<EcsTransform, TransformRef>.Exclude<IgnoreTransformSync> _filterTransforms;
         private EcsFilter<EcsTransform, RigidbodyRef, IgnoreTransformSync>.Exclude<IgnoreRigidbodySync> _filterRigidbody;
+        private EcsFilter<EcsTransform, Rigidbody2DRef, IgnoreTransformSync>.Exclude<IgnoreRigidbodySync> _filterRigidbody2D;
 
         public void PreInit()
         {
@@ -33,6 +35,14 @@ namespace AffenCode
                 ref var rigidbodyRef = ref _filterRigidbody.Get2(entityIndex);
                 ecsTransform.Position = rigidbodyRef.Value.position;
                 ecsTransform.Rotation = rigidbodyRef.Value.rotation;
+            }
+            
+            foreach (var entityIndex in _filterRigidbody2D)
+            {
+                ref var ecsTransform = ref _filterRigidbody2D.Get1(entityIndex);
+                ref var rigidbodyRef = ref _filterRigidbody2D.Get2(entityIndex);
+                ecsTransform.Position = new(rigidbodyRef.Value.position.x, rigidbodyRef.Value.position.y, ecsTransform.Position.z);
+                ecsTransform.Rotation = Quaternion.Euler(0, 0, rigidbodyRef.Value.rotation);
             }
         }
     }

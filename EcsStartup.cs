@@ -1,3 +1,4 @@
+using System;
 using Leopotam.Ecs;
 using UnityEngine;
 namespace AffenCode
@@ -9,6 +10,11 @@ namespace AffenCode
         protected EcsSystems FixedUpdateSystems;
         protected EcsSystems LateUpdateSystems;
         protected EcsSystems UpdateSystems;
+
+        private void Reset()
+        {
+            WorldProvider = FindObjectOfType<EcsWorldProvider>();
+        }
 
         private void Start()
         {

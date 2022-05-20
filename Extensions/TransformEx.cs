@@ -36,5 +36,15 @@ namespace AffenCode
                 })
                 .Replace(new IgnoreTransformSync());
         }
+
+        public static EcsEntity AddRigidbody2D(this EcsEntity entity, Rigidbody2D rigidbody)
+        {
+            return entity
+                .Replace(new Rigidbody2DRef
+                {
+                    Value = rigidbody
+                })
+                .Replace(new IgnoreTransformSync());
+        }
     }
 }

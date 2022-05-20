@@ -5,6 +5,7 @@ namespace AffenCode
     {
         private EcsFilter<EcsTransform, TransformRef>.Exclude<IgnoreTransformSync> _filterTransforms;
         private EcsFilter<EcsTransform, RigidbodyRef, IgnoreTransformSync>.Exclude<IgnoreRigidbodySync> _filterRigidbody;
+        private EcsFilter<EcsTransform, Rigidbody2DRef, IgnoreTransformSync>.Exclude<IgnoreRigidbodySync> _filterRigidbody2D;
 
         public void PreInit()
         {
@@ -33,6 +34,14 @@ namespace AffenCode
                 ref var rigidbodyRef = ref _filterRigidbody.Get2(entityIndex);
                 rigidbodyRef.Value.position = ecsTransform.Position;
                 rigidbodyRef.Value.rotation = ecsTransform.Rotation;
+            }
+            
+            foreach (var entityIndex in _filterRigidbody2D)
+            {
+                ref var ecsTransform = ref _filterRigidbody2D.Get1(entityIndex);
+                ref var rigidbodyRef = ref _filterRigidbody2D.Get2(entityIndex);
+                rigidbodyRef.Value.position = ecsTransform.Position;
+                rigidbodyRef.Value.rotation = ecsTransform.Rotation.eulerAngles.z;
             }
         }
     }

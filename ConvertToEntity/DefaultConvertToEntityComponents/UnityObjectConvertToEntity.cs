@@ -10,9 +10,15 @@ namespace AffenCode
         {
             ecsEntity.AddGameObject(gameObject);
             ecsEntity.AddTransform(transform);
+            
             if (TryGetComponent<Rigidbody>(out var rb))
             {
                 ecsEntity.AddRigidbody(rb);
+            }
+            
+            if (TryGetComponent<Rigidbody2D>(out var rb2d))
+            {
+                ecsEntity.AddRigidbody2D(rb2d);
             }
         }
     }
