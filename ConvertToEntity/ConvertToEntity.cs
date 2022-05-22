@@ -1,3 +1,4 @@
+using System;
 using Leopotam.Ecs;
 using UnityEngine;
 namespace AffenCode
@@ -7,6 +8,7 @@ namespace AffenCode
         [SerializeField] private EcsWorldProvider _worldProvider;
         [SerializeField] private ConvertMode _convertMode;
         [SerializeField] private CollectMode _collectMode;
+        [SerializeField] private bool _destroyEntityWithGameObject;
 
         private EcsEntity? _entity;
 
@@ -41,6 +43,14 @@ namespace AffenCode
             }
         }
 
+        private void OnDestroy()
+        {
+            if (_destroyEntityWithGameObject && TryGetEntity(out var entity))
+            {
+                entity.Destroy();   
+            }
+        }
+        
         public bool TryGetEntity(out EcsEntity ecsEntity)
         {
             if (_entity.HasValue && _entity.Value.IsAlive())
