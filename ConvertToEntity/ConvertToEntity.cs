@@ -17,6 +17,11 @@ namespace AffenCode
 
         private void Start()
         {
+            if (!_worldProvider)
+            {
+                _worldProvider = EcsWorldProvider.DefaultWorldProvider;
+            }
+            
             _entity = _worldProvider.World.NewEntity();
 
             var components = GetComponents<IConvertToEntity>();
