@@ -1,33 +1,34 @@
 using Leopotam.Ecs;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 namespace AffenCode
 {
     public abstract class EcsButtonProvider<T> : MonoBehaviour where T : struct
     {
-        [SerializeField] private EcsWorldProvider _worldProvider;
-        [SerializeField] private Button _button;
-        [SerializeField] private T _value;
+        [FormerlySerializedAs("_worldProvider")] public EcsWorldProvider WorldProvider;
+        [FormerlySerializedAs("_button")] public Button Button;
+        [FormerlySerializedAs("_value")] public T Value;
 
-        private void Reset()
+        protected virtual void Reset()
         {
-            _worldProvider = FindObjectOfType<EcsWorldProvider>();
-            _button = GetComponent<Button>();
+            WorldProvider = FindObjectOfType<EcsWorldProvider>();
+            Button = GetComponent<Button>();
         }
 
         private void OnEnable()
         {
-            _button.onClick.AddListener(OnClick);
+            Button.onClick.AddListener(OnClick);
         }
 
         private void OnDisable()
         {
-            _button.onClick.RemoveListener(OnClick);
+            Button.onClick.RemoveListener(OnClick);
         }
 
         protected virtual void OnClick()
         {
-            CreateClickEventEntity(_worldProvider);
+            CreateClickEventEntity(WorldProvider);
         }
 
         protected virtual void CreateClickEventEntity(EcsWorldProvider ecsWorldProvider)
@@ -37,7 +38,7 @@ namespace AffenCode
 
         protected virtual void CreateClickEventComponent(EcsEntity ecsEntity)
         {
-            ecsEntity.Replace(_value);
+            ecsEntity.Replace(Value);
         }
     }
 }
