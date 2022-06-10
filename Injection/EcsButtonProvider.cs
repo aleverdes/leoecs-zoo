@@ -25,7 +25,7 @@ namespace AffenCode
             _button.onClick.RemoveListener(OnClick);
         }
 
-        private void OnClick()
+        protected virtual void OnClick()
         {
             CreateClickEventEntity(_worldProvider);
         }

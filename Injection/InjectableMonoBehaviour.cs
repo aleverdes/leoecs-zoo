@@ -3,12 +3,12 @@ namespace AffenCode
 {
     public abstract class InjectableMonoBehaviour : MonoBehaviour
     {
-        private void Awake()
+        protected virtual void Awake()
         {
             LeoEcsInjector.AddInjection(this);
         }
 
-        private void OnDestroy()
+        protected virtual  void OnDestroy()
         {
             LeoEcsInjector.RemoveInjection(this);
         }
