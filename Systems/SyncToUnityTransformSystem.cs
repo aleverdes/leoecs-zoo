@@ -4,6 +4,7 @@ namespace AffenCode
     public class SyncToUnityTransformSystem : IEcsPreInitSystem, IEcsRunSystem
     {
         private EcsFilter<EcsTransform, TransformRef>.Exclude<IgnoreTransformSync> _filterTransforms;
+        private EcsFilter<EcsTransform, RectTransformRef>.Exclude<IgnoreTransformSync> _filterRectTransforms;
         private EcsFilter<EcsTransform, RigidbodyRef, IgnoreTransformSync>.Exclude<IgnoreRigidbodySync> _filterRigidbody;
         private EcsFilter<EcsTransform, Rigidbody2DRef, IgnoreTransformSync>.Exclude<IgnoreRigidbodySync> _filterRigidbody2D;
 
@@ -22,10 +23,19 @@ namespace AffenCode
             foreach (var entityIndex in _filterTransforms)
             {
                 ref var ecsTransform = ref _filterTransforms.Get1(entityIndex);
-                ref var unityTransform = ref _filterTransforms.Get2(entityIndex);
-                unityTransform.Value.position = ecsTransform.Position;
-                unityTransform.Value.rotation = ecsTransform.Rotation;
-                unityTransform.Value.localScale = ecsTransform.Scale;
+                ref var transformRef = ref _filterTransforms.Get2(entityIndex);
+                transformRef.Value.position = ecsTransform.Position;
+                transformRef.Value.rotation = ecsTransform.Rotation;
+                transformRef.Value.localScale = ecsTransform.Scale;
+            }
+            
+            foreach (var entityIndex in _filterRectTransforms)
+            {
+                ref var ecsTransform = ref _filterRectTransforms.Get1(entityIndex);
+                ref var rectTransformRef = ref _filterRectTransforms.Get2(entityIndex);
+                rectTransformRef.Value.anchoredPosition = ecsTransform.Position;
+                rectTransformRef.Value.rotation = ecsTransform.Rotation;
+                rectTransformRef.Value.localScale = ecsTransform.Scale;
             }
             
             foreach (var entityIndex in _filterRigidbody)

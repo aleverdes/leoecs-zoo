@@ -35,7 +35,7 @@ namespace AffenCode
                     Position = transform.anchoredPosition,
                     Rotation = transform.rotation
                 })
-                .Replace(new TransformRef
+                .Replace(new RectTransformRef
                 {
                     Value = transform
                 });

@@ -16,6 +16,12 @@ namespace AffenCode
     {
         public Transform Value;
     }
+
+    [Serializable]
+    public struct RectTransformRef
+    {
+        public RectTransform Value;
+    }
     
     [Serializable]
     public struct IgnoreTransformSync

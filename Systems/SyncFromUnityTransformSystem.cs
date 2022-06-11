@@ -5,6 +5,7 @@ namespace AffenCode
     public class SyncFromUnityTransformSystem : IEcsPreInitSystem, IEcsRunSystem
     {
         private EcsFilter<EcsTransform, TransformRef>.Exclude<IgnoreTransformSync> _filterTransforms;
+        private EcsFilter<EcsTransform, RectTransformRef>.Exclude<IgnoreTransformSync> _filterRectTransforms;
         private EcsFilter<EcsTransform, RigidbodyRef, IgnoreTransformSync>.Exclude<IgnoreRigidbodySync> _filterRigidbody;
         private EcsFilter<EcsTransform, Rigidbody2DRef, IgnoreTransformSync>.Exclude<IgnoreRigidbodySync> _filterRigidbody2D;
 
@@ -27,6 +28,15 @@ namespace AffenCode
                 transform.Position = unityTransform.Value.position;
                 transform.Rotation = unityTransform.Value.rotation;
                 transform.Scale = unityTransform.Value.localScale;
+            }
+            
+            foreach (var entityIndex in _filterRectTransforms)
+            {
+                ref var transform = ref _filterRectTransforms.Get1(entityIndex);
+                ref var rectTransformRef = ref _filterRectTransforms.Get2(entityIndex);
+                transform.Position = rectTransformRef.Value.anchoredPosition;
+                transform.Rotation = rectTransformRef.Value.rotation;
+                transform.Scale = rectTransformRef.Value.localScale;
             }
             
             foreach (var entityIndex in _filterRigidbody)

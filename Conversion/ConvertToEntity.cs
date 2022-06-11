@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Leopotam.Ecs;
 using UnityEngine;
 namespace AffenCode
@@ -6,6 +7,7 @@ namespace AffenCode
     public sealed class ConvertToEntity : MonoBehaviour
     {
         [SerializeField] private EcsWorldProvider _worldProvider;
+        [SerializeField] private ConvertTime _convertTime;
         [SerializeField] private ConvertMode _convertMode;
         [SerializeField] private CollectMode _collectMode;
         [SerializeField] private bool _destroyEntityWithGameObject;
@@ -17,8 +19,13 @@ namespace AffenCode
             _worldProvider = FindObjectOfType<EcsWorldProvider>();
         }
 
-        private void Start()
+        private IEnumerator Start()
         {
+            if (_convertTime == ConvertTime.EndOfFrame)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            
             if (!_worldProvider)
             {
                 _worldProvider = EcsWorldProvider.DefaultWorldProvider;
@@ -41,6 +48,8 @@ namespace AffenCode
             {
                 Destroy(gameObject);
             }
+
+            yield return true;
         }
 
         private void OnDestroy()
