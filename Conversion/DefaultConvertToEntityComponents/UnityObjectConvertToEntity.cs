@@ -9,7 +9,15 @@ namespace AffenCode
         public void ConvertToEntity(EcsEntity ecsEntity)
         {
             ecsEntity.AddGameObject(gameObject);
-            ecsEntity.AddTransform(transform);
+
+            if (transform is RectTransform rectTransform)
+            {
+                ecsEntity.AddRectTransform(rectTransform);
+            }
+            else
+            {
+                ecsEntity.AddTransform(transform);
+            }
             
             if (TryGetComponent<Rigidbody>(out var rb))
             {

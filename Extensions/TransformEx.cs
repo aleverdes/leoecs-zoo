@@ -26,6 +26,20 @@ namespace AffenCode
                     Value = transform
                 });
         }
+        
+        public static EcsEntity AddRectTransform(this EcsEntity entity, RectTransform transform)
+        {
+            return entity
+                .Replace(new EcsTransform
+                {
+                    Position = transform.anchoredPosition,
+                    Rotation = transform.rotation
+                })
+                .Replace(new TransformRef
+                {
+                    Value = transform
+                });
+        }
 
         public static EcsEntity AddRigidbody(this EcsEntity entity, Rigidbody rigidbody)
         {
