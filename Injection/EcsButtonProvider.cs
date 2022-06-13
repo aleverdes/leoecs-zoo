@@ -28,7 +28,7 @@ namespace AffenCode
 
         protected virtual void OnClick()
         {
-            CreateClickEventEntity(WorldProvider);
+            CreateClickEventEntity(WorldProvider ? WorldProvider : EcsWorldProvider.DefaultWorldProvider);
         }
 
         protected virtual void CreateClickEventEntity(EcsWorldProvider ecsWorldProvider)
