@@ -6,9 +6,9 @@ namespace AffenCode
 {
     public abstract class EcsButtonProvider<T> : MonoBehaviour where T : struct
     {
-        [FormerlySerializedAs("_worldProvider")] public EcsWorldProvider WorldProvider;
-        [FormerlySerializedAs("_button")] public Button Button;
-        [FormerlySerializedAs("_value")] public T Value;
+        public EcsWorldProvider WorldProvider;
+        public Button Button;
+        public T Value;
 
         protected virtual void Reset()
         {
