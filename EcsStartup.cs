@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Leopotam.Ecs;
 using UnityEngine;
 namespace AffenCode
@@ -11,13 +12,18 @@ namespace AffenCode
         protected EcsSystems LateUpdateSystems;
         protected EcsSystems UpdateSystems;
 
+        protected bool Initilized { get; private set; }
+        
         private void Reset()
         {
             WorldProvider = FindObjectOfType<EcsWorldProvider>();
         }
 
-        private void Start()
+        private IEnumerator Start()
         {
+            yield return StartCoroutine(Initialize());
+            Initilized = true;
+            
             SetupUpdateSystems();
             SetupFixedUpdateSystems();
             SetupLateUpdateSystems();
@@ -25,16 +31,31 @@ namespace AffenCode
 
         private void Update()
         {
+            if (!Initilized)
+            {
+                return;
+            }
+            
             UpdateSystems?.Run();
         }
 
         private void FixedUpdate()
         {
+            if (!Initilized)
+            {
+                return;
+            }
+            
             FixedUpdateSystems?.Run();
         }
 
         private void LateUpdate()
         {
+            if (!Initilized)
+            {
+                return;
+            }
+            
             LateUpdateSystems?.Run();
         }
 
@@ -96,6 +117,11 @@ namespace AffenCode
         protected abstract void AddUpdateSystems(EcsSystems ecsSystems);
         protected abstract void AddLateUpdateSystems(EcsSystems ecsSystems);
         protected abstract void AddFixedUpdateSystems(EcsSystems ecsSystems);
+
+        protected virtual IEnumerator Initialize()
+        {
+            yield return true;
+        }
 
         protected virtual void AddUpdateOneFrameComponents(EcsSystems ecsSystems)
         {}
