@@ -19,9 +19,8 @@ namespace AffenCode
             WorldProvider = FindObjectOfType<EcsWorldProvider>();
         }
 
-        private IEnumerator Start()
+        private void Start()
         {
-            yield return StartCoroutine(Initialize());
             Initilized = true;
             
             SetupUpdateSystems();
@@ -117,11 +116,6 @@ namespace AffenCode
         protected abstract void AddUpdateSystems(EcsSystems ecsSystems);
         protected abstract void AddLateUpdateSystems(EcsSystems ecsSystems);
         protected abstract void AddFixedUpdateSystems(EcsSystems ecsSystems);
-
-        protected virtual IEnumerator Initialize()
-        {
-            yield return true;
-        }
 
         protected virtual void AddUpdateOneFrameComponents(EcsSystems ecsSystems)
         {}
