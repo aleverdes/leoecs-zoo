@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Leopotam.Ecs;
+using UnityEngine;
 
 namespace AffenCode
 {
@@ -28,6 +29,12 @@ namespace AffenCode
             }
 
             return ecsSystems;
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void ResetInjection()
+        {
+            InjectedObjects.Clear();
         }
     }
 }
